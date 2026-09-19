@@ -1,13 +1,17 @@
 export function createInput(target) {
   const keys = new Set();
-  const justPressed = new Set();
+  const justPressedKeys = new Set();
 
   function onKeyDown(event) {
     if (!keys.has(event.code)) {
-      justPressed.add(event.code);
+      justPressedKeys.add(event.code);
     }
 
     keys.add(event.code);
+
+    if (event.code === 'Space') {
+      event.preventDefault();
+    }
   }
 
   function onKeyUp(event) {
@@ -23,11 +27,11 @@ export function createInput(target) {
     },
 
     justPressed(code) {
-      return justPressed.has(code);
+      return justPressedKeys.has(code);
     },
 
     endFrame() {
-      justPressed.clear();
+      justPressedKeys.clear();
     }
   };
 }

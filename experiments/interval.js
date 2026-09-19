@@ -28,7 +28,7 @@ const intervalId = setInterval(() => {
     backgroundFrames++;
   }
 
-  // Через 10 секунд просимо перейти на іншу вкладку
+  
   if (phase === 'foreground' && elapsed >= 10000) {
     phase = 'background';
 
@@ -43,7 +43,7 @@ const intervalId = setInterval(() => {
     console.log('Stay there for 5 seconds, then return.');
   }
 
-  // Після 15 секунд завершуємо експеримент
+  
   if (elapsed >= 15000) {
     clearInterval(intervalId);
 
