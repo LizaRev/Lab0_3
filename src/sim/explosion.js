@@ -1,7 +1,7 @@
 import { Entity } from './entity.js';
 import { Vector2 } from './vector.js';
 
-export class ExplosionParticle extends Entity {
+export class ExplosionParticle extends Entity {  
   constructor(x, y, vx, vy) {
     super(x, y, vx, vy, 0, 3, 'explosion');
 
@@ -20,7 +20,7 @@ export class ExplosionParticle extends Entity {
 }
 
 export function createExplosion(world, x, y) {
-  const particleCount = 20;
+  const particleCount = 20; 
 
   for (let i = 0; i < particleCount; i++) {
     const angle = Math.random() * Math.PI * 2;

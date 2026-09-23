@@ -1,4 +1,11 @@
-export function drawScene(ctx, width, height, ship, world) {
+export function drawScene(
+  ctx,
+  width,
+  height,
+  ship,
+  world,
+  assets
+) {
   ctx.clearRect(0, 0, width, height);
 
   ctx.fillStyle = '#050816';
@@ -9,24 +16,44 @@ export function drawScene(ctx, width, height, ship, world) {
 
   for (const entity of world) {
     if (entity.kind === 'asteroid') {
-      drawAsteroid(ctx, entity);
+      drawAsteroid(
+        ctx,
+        entity,
+        assets.asteroid
+      );
     }
 
     if (entity.kind === 'bullet') {
-      drawBullet(ctx, entity);
+      drawBullet(
+        ctx,
+        entity,
+        assets.bullet
+      );
     }
 
     if (entity.kind === 'explosion') {
-      drawExplosionParticle(ctx, entity);
+      drawExplosionParticle(
+        ctx,
+        entity
+      );
     }
 
     if (entity.kind === 'pickup') {
-      drawPickup(ctx, entity);
+      drawPickup(
+        ctx,
+        entity,
+        assets.shield
+      );
     }
   }
 
-  drawShip(ctx, ship);
+  drawShip(
+    ctx,
+    ship,
+    assets.ship
+  );
 }
+
 
 function drawStars(ctx, width, height) {
   ctx.fillStyle = 'white';
@@ -38,6 +65,7 @@ function drawStars(ctx, width, height) {
   }
 }
 
+
 function drawGrid(ctx, width, height) {
   const size = 50;
 
@@ -46,83 +74,118 @@ function drawGrid(ctx, width, height) {
 
   for (let x = 0; x <= width; x += size) {
     ctx.beginPath();
+
     ctx.moveTo(x, 0);
     ctx.lineTo(x, height);
+
     ctx.stroke();
   }
 
   for (let y = 0; y <= height; y += size) {
     ctx.beginPath();
+
     ctx.moveTo(0, y);
     ctx.lineTo(width, y);
+
     ctx.stroke();
   }
 }
 
-function drawShip(ctx, ship) {
-  if (!ship) {
+
+function drawShip(ctx, ship, image) {
+  if (!ship || !image) {
     return;
   }
 
   ctx.save();
 
-  ctx.translate(ship.x, ship.y);
-  ctx.rotate(ship.angle);
+  ctx.translate(
+    ship.x,
+    ship.y
+  );
 
-  ctx.beginPath();
-  ctx.moveTo(22, 0);
-  ctx.lineTo(-15, -12);
-  ctx.lineTo(-10, 0);
-  ctx.lineTo(-15, 12);
-  ctx.closePath();
+  ctx.rotate(
+    ship.angle
+  );
 
-  ctx.fillStyle = 'white';
-  ctx.fill();
+  const sourceX = 0;
+  const sourceY = 0;
 
-  if (ship.thrust) {
-    ctx.beginPath();
-    ctx.moveTo(-10, -6);
-    ctx.lineTo(-28, 0);
-    ctx.lineTo(-10, 6);
-    ctx.closePath();
+  const sourceWidth = image.width;
+  const sourceHeight = image.height;
 
-    ctx.fillStyle = 'orange';
-    ctx.fill();
-  }
+  const drawWidth = 90;
+  const drawHeight = 90;
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    -drawWidth / 2,
+    -drawHeight / 2,
+    drawWidth,
+    drawHeight
+  );
 
   ctx.restore();
 }
 
-function drawBullet(ctx, bullet) {
-  ctx.beginPath();
 
-  ctx.arc(
-    bullet.pos.x,
-    bullet.pos.y,
-    bullet.radius,
-    0,
-    Math.PI * 2
+function drawBullet(ctx, bullet, image) {
+  if (!image) {
+    return;
+  }
+
+  const size = bullet.radius * 2;
+
+  const sourceX = 0;
+  const sourceY = 0;
+
+  const sourceWidth = image.width;
+  const sourceHeight = image.height;
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    bullet.pos.x - size / 2,
+    bullet.pos.y - size / 2,
+    size,
+    size
   );
-
-  ctx.fillStyle = 'yellow';
-  ctx.fill();
 }
 
-function drawAsteroid(ctx, asteroid) {
-  ctx.beginPath();
 
-  ctx.arc(
-    asteroid.pos.x,
-    asteroid.pos.y,
-    asteroid.radius,
-    0,
-    Math.PI * 2
+function drawAsteroid(ctx, asteroid, image) {
+  if (!image) {
+    return;
+  }
+
+  const size = asteroid.radius * 2.5;
+
+  const sourceX = 0;
+  const sourceY = 0;
+
+  const sourceWidth = image.width;
+  const sourceHeight = image.height;
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    asteroid.pos.x - size / 2,
+    asteroid.pos.y - size / 2,
+    size,
+    size
   );
-
-  ctx.strokeStyle = 'gray';
-  ctx.lineWidth = 3;
-  ctx.stroke();
 }
+
 
 function drawExplosionParticle(ctx, particle) {
   const alpha = particle.ttl / 0.5;
@@ -145,42 +208,29 @@ function drawExplosionParticle(ctx, particle) {
   ctx.globalAlpha = 1;
 }
 
-function drawPickup(ctx, pickup) {
-  ctx.beginPath();
 
-  ctx.arc(
-    pickup.pos.x,
-    pickup.pos.y,
-    pickup.radius,
-    0,
-    Math.PI * 2
+function drawPickup(ctx, pickup, image) {
+  if (!image) {
+    return;
+  }
+
+  const size = pickup.radius * 5;
+
+  const sourceX = 0;
+  const sourceY = 0;
+
+  const sourceWidth = image.width;
+  const sourceHeight = image.height;
+
+  ctx.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    pickup.pos.x - size / 2,
+    pickup.pos.y - size / 2,
+    size,
+    size
   );
-
-  ctx.strokeStyle = 'cyan';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    pickup.pos.x - 7,
-    pickup.pos.y
-  );
-
-  ctx.lineTo(
-    pickup.pos.x + 7,
-    pickup.pos.y
-  );
-
-  ctx.moveTo(
-    pickup.pos.x,
-    pickup.pos.y - 7
-  );
-
-  ctx.lineTo(
-    pickup.pos.x,
-    pickup.pos.y + 7
-  );
-
-  ctx.stroke();
 }

@@ -3,11 +3,14 @@ import { createExplosion } from './explosion.js';
 import { Ship } from './ship.js';
 import { Asteroid } from './asteroid.js';
 
-export class World {
+export class World extends EventTarget {
   #entities = new Map();
 
   constructor() {
+    super();
+
     this.score = 0;
+
     this.width = 800;
     this.height = 500;
 
@@ -16,14 +19,19 @@ export class World {
   }
 
   spawn(entity) {
-    this.#entities.set(entity.id, entity);
+    this.#entities.set(
+      entity.id,
+      entity
+    );
+
     entity.world = this;
 
     return entity;
   }
 
   despawn(id) {
-    const entity = this.#entities.get(id);
+    const entity =
+      this.#entities.get(id);
 
     if (entity) {
       entity.alive = false;
@@ -39,40 +47,69 @@ export class World {
   }
 
   *ofKind(kind) {
-    for (const entity of this.#entities.values()) {
-      if (entity.kind === kind && entity.alive) {
+    for (
+      const entity of
+      this.#entities.values()
+    ) {
+      if (
+        entity.kind === kind &&
+        entity.alive
+      ) {
         yield entity;
       }
     }
   }
 
   step(dt, inputs) {
-    this.width = inputs.width;
-    this.height = inputs.height;
+    this.width =
+      inputs.width;
 
-    for (const entity of this.#entities.values()) {
+    this.height =
+      inputs.height;
+
+    for (
+      const entity of
+      this.#entities.values()
+    ) {
       if (entity.alive) {
-        entity.update(dt, inputs);
+        entity.update(
+          dt,
+          inputs
+        );
       }
     }
 
-    const collisions = getCollisions(this);
+    const collisions =
+      getCollisions(this);
 
-    for (const [a, b] of collisions) {
-      this.handleCollision(a, b);
+    for (
+      const [a, b] of collisions
+    ) {
+      this.handleCollision(
+        a,
+        b
+      );
     }
 
-    for (const [id, entity] of this.#entities) {
+    for (
+      const [id, entity] of
+      this.#entities
+    ) {
       if (!entity.alive) {
         this.#entities.delete(id);
       }
     }
 
-    if (this.respawnTimer > 0) {
+    if (
+      this.respawnTimer > 0
+    ) {
       this.respawnTimer -= dt;
 
-      if (this.respawnTimer <= 0) {
-        const newShip = this.createSafeShip();
+      if (
+        this.respawnTimer <= 0
+      ) {
+        const newShip =
+          this.createSafeShip();
 
         this.spawn(newShip);
 
@@ -81,64 +118,100 @@ export class World {
     }
 
     for (
-      let i = this.asteroidRespawnTimers.length - 1;
+      let i =
+        this.asteroidRespawnTimers.length - 1;
+
       i >= 0;
+
       i--
     ) {
       this.asteroidRespawnTimers[i] -= dt;
 
-      if (this.asteroidRespawnTimers[i] <= 0) {
-        const newAsteroid = this.createAsteroid();
+      if (
+        this.asteroidRespawnTimers[i] <= 0
+      ) {
+        const newAsteroid =
+          this.createAsteroid();
 
-        this.spawn(newAsteroid);
+        this.spawn(
+          newAsteroid
+        );
 
-        this.asteroidRespawnTimers.splice(i, 1);
+        this.asteroidRespawnTimers.splice(
+          i,
+          1
+        );
       }
     }
   }
 
   handleCollision(a, b) {
-
-    // Куля астероїда влучає в корабель
     if (
       a.kind === 'bullet' &&
       b.kind === 'ship' &&
+      a.owner &&
       a.owner.kind === 'asteroid'
     ) {
       b.takeDamage(1);
+
       a.alive = false;
+
+      this.dispatchEvent(
+        new CustomEvent('hit')
+      );
 
       if (!b.alive) {
         this.destroyShip(b);
       }
     }
 
-    // Куля астероїда влучає в корабель
     if (
       a.kind === 'ship' &&
       b.kind === 'bullet' &&
+      b.owner &&
       b.owner.kind === 'asteroid'
     ) {
       a.takeDamage(1);
+
       b.alive = false;
+
+      this.dispatchEvent(
+        new CustomEvent('hit')
+      );
 
       if (!a.alive) {
         this.destroyShip(a);
       }
     }
 
-    // Куля корабля влучає в астероїд
     if (
       a.kind === 'bullet' &&
       a.alive &&
       b.kind === 'asteroid' &&
+      a.owner &&
       a.owner.kind === 'ship'
     ) {
       b.takeDamage(1);
+
       a.alive = false;
+
+      this.dispatchEvent(
+        new CustomEvent('hit')
+      );
 
       if (!b.alive) {
         this.score += 100;
+
+        this.dispatchEvent(
+          new CustomEvent(
+            'scoreChanged',
+            {
+              detail: {
+                score: this.score
+              }
+            }
+          )
+        );
 
         createExplosion(
           this,
@@ -146,22 +219,44 @@ export class World {
           b.pos.y
         );
 
-        this.asteroidRespawnTimers.push(2);
+        this.dispatchEvent(
+          new CustomEvent('exploded')
+        );
+
+        this.asteroidRespawnTimers.push(
+          2
+        );
       }
     }
 
-    // Куля корабля влучає в астероїд
     if (
       a.kind === 'asteroid' &&
       b.kind === 'bullet' &&
       b.alive &&
+      b.owner &&
       b.owner.kind === 'ship'
     ) {
       a.takeDamage(1);
+
       b.alive = false;
+
+      this.dispatchEvent(
+        new CustomEvent('hit')
+      );
 
       if (!a.alive) {
         this.score += 100;
+
+        this.dispatchEvent(
+          new CustomEvent(
+            'scoreChanged',
+            {
+              detail: {
+                score: this.score
+              }
+            }
+          )
+        );
 
         createExplosion(
           this,
@@ -169,34 +264,53 @@ export class World {
           a.pos.y
         );
 
-        this.asteroidRespawnTimers.push(2);
+        this.dispatchEvent(
+          new CustomEvent('exploded')
+        );
+
+        this.asteroidRespawnTimers.push(
+          2
+        );
       }
     }
 
-    // Корабель підбирає щит
     if (
       a.kind === 'ship' &&
       b.kind === 'pickup'
     ) {
-      this.collectPickup(a, b);
+      this.collectPickup(
+        a,
+        b
+      );
     }
 
-    // Корабель підбирає щит
     if (
       a.kind === 'pickup' &&
       b.kind === 'ship'
     ) {
-      this.collectPickup(b, a);
+      this.collectPickup(
+        b,
+        a
+      );
     }
   }
 
-  collectPickup(ship, pickup) {
-    if (!ship.alive || !pickup.alive) {
+  collectPickup(
+    ship,
+    pickup
+  ) {
+    if (
+      !ship.alive ||
+      !pickup.alive
+    ) {
       return;
     }
 
-    if (pickup.type === 'shield') {
+    if (
+      pickup.type === 'shield'
+    ) {
       ship.restoreHp();
+
       ship.shield = true;
     }
 
@@ -211,42 +325,73 @@ export class World {
     );
 
     ship.alive = false;
+
+    this.dispatchEvent(
+      new CustomEvent('exploded')
+    );
+
     this.respawnTimer = 2;
   }
 
   createSafeShip() {
     const shipRadius = 20;
 
-    for (let attempt = 0; attempt < 100; attempt++) {
+    for (
+      let attempt = 0;
+      attempt < 100;
+      attempt++
+    ) {
       const x =
         shipRadius +
         Math.random() *
-          (this.width - shipRadius * 2);
+        (
+          this.width -
+          shipRadius * 2
+        );
 
       const y =
         shipRadius +
         Math.random() *
-          (this.height - shipRadius * 2);
+        (
+          this.height -
+          shipRadius * 2
+        );
 
       let safe = true;
 
-      for (const asteroid of this.ofKind('asteroid')) {
-        const dx = asteroid.pos.x - x;
-        const dy = asteroid.pos.y - y;
+      for (
+        const asteroid of
+        this.ofKind('asteroid')
+      ) {
+        const dx =
+          asteroid.pos.x - x;
 
-        const distance = Math.hypot(dx, dy);
+        const dy =
+          asteroid.pos.y - y;
+
+        const distance =
+          Math.hypot(
+            dx,
+            dy
+          );
 
         if (
           distance <
-          asteroid.radius + shipRadius + 30
+          asteroid.radius +
+          shipRadius +
+          30
         ) {
           safe = false;
+
           break;
         }
       }
 
       if (safe) {
-        return new Ship(x, y);
+        return new Ship(
+          x,
+          y
+        );
       }
     }
 
@@ -262,15 +407,26 @@ export class World {
     const x =
       radius +
       Math.random() *
-        (this.width - radius * 2);
+      (
+        this.width -
+        radius * 2
+      );
 
     const y =
       radius +
       Math.random() *
-        (this.height - radius * 2);
+      (
+        this.height -
+        radius * 2
+      );
 
-    const vx = -100 + Math.random() * 200;
-    const vy = -100 + Math.random() * 200;
+    const vx =
+      -100 +
+      Math.random() * 200;
+
+    const vy =
+      -100 +
+      Math.random() * 200;
 
     return new Asteroid(
       x,
@@ -281,3 +437,4 @@ export class World {
     );
   }
 }
+

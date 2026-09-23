@@ -1,4 +1,4 @@
-import { Entity } from './entity.js';
+import { Entity } from './entity.js'; //імпорт класу
 
 export class Bullet extends Entity {
 
@@ -6,20 +6,20 @@ export class Bullet extends Entity {
     super(x, y, vx, vy, 0, 4, 'bullet');
 
     this.ttl = 2;
-    this.homing = null;
+    this.homing = null; 
     this.owner = owner;
   }
 
-  update(dt, inputs) {
+  update(dt, inputs) { 
     if (this.homing) {
-      this.homing.update(this, dt);
+      this.homing.update(this, dt); 
     }
 
-    super.update(dt);
+    super.update(dt); 
 
-    this.ttl -= dt;
+    this.ttl -= dt; 
 
-    if (this.ttl <= 0) {
+    if (this.ttl <= 0) { 
       this.alive = false;
     }
   }

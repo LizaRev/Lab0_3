@@ -1,6 +1,6 @@
 import { Vector2 } from './vector.js';
 
-export function createHomingBehavior(target) {
+export function createHomingBehavior(target) { 
   return {
     target,
 
@@ -12,9 +12,9 @@ export function createHomingBehavior(target) {
       const direction = new Vector2(
         this.target.pos.x - entity.pos.x,
         this.target.pos.y - entity.pos.y
-      ).normalize();
+      ).normalize(); 
 
-      const strength = 100;
+      const strength = 100; 
 
       entity.vel.x += direction.x * strength * dt;
       entity.vel.y += direction.y * strength * dt;
@@ -22,6 +22,6 @@ export function createHomingBehavior(target) {
   };
 }
 
-export function attachHoming(entity, target) {
+export function attachHoming(entity, target) { 
   entity.homing = createHomingBehavior(target);
 }

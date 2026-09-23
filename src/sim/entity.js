@@ -1,7 +1,8 @@
 import { Vector2 } from './vector.js';
 
-export class Entity { //клас сутностей,який містить спільні властовості для обєктів 
-  static #nextId = 1; //щоб кожній сутності дати новий айді
+export class Entity { 
+
+  static #nextId = 1; 
 
   constructor(
     x = 0,
@@ -9,7 +10,7 @@ export class Entity { //клас сутностей,який містить сп
     vx = 0,
     vy = 0,
     angle = 0,
-    radius = 10, //визначає розмір обєкта
+    radius = 10,
     kind = 'entity'
   ) {
     this.id = Entity.#nextId++;
@@ -21,10 +22,10 @@ export class Entity { //клас сутностей,який містить сп
     this.radius = radius;
     this.alive = true;
     this.kind = kind;
-    this.world = null; //поки не належить ігровому світу
+    this.world = null; 
   }
 
-  update(dt) { //час між двома оновленннями гри 
+  update(dt) { 
     this.pos = this.pos.add(
       this.vel.scale(dt)
     );

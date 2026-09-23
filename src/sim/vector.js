@@ -4,21 +4,21 @@ export class Vector2 {
     this.y = y;
   }
 
-  add(other) { //додатв новий вектор з двух існуючих і це потріно для зхміни положення
+  add(other) { 
     return new Vector2(
       this.x + other.x,
       this.y + other.y
     );
   }
 
-  sub(other) { //наприклад для вістані
+  sub(other) { 
     return new Vector2(
       this.x - other.x,
       this.y - other.y
     );
   }
 
-  scale(value) { //потріно для швидкості 
+  scale(value) { 
     return new Vector2(
       this.x * value,
       this.y * value
@@ -29,8 +29,8 @@ export class Vector2 {
     return Math.hypot(this.x, this.y);
   }
 
-  normalize() { //для отримання напримку
-    const length = this.length(); //знахидмо довжину потончого вектора
+  normalize() { 
+    const length = this.length(); 
 
     if (length === 0) {
       return new Vector2(0, 0);
@@ -52,11 +52,11 @@ export class Vector2 {
     );
   }
 
-  dot(other) { //скалярний добуток множить відпідні компоненти,чи дивится ворог на гравця,який кут,визнаечння напрямку
+  dot(other) { 
     return this.x * other.x + this.y * other.y;
   }
 
-  static fromAngle(angle) { //потрібен щоб за кутом отримати напрямок руху
+  static fromAngle(angle) { 
     return new Vector2(
       Math.cos(angle),
       Math.sin(angle)
