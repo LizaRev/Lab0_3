@@ -193,7 +193,8 @@ queueMicrotask(() => {
 
 
 
-<img width="2905" height="1412" alt="2026-09-23_10 36 38_cropped" src="https://github.com/user-attachments/assets/55e1dff7-632b-4696-ae23-a52b8c0261a4" />
+<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/79ddabd4-74dc-4e56-a60f-ced56eb76b00" />
+
 
 
 
