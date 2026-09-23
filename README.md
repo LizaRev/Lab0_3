@@ -241,5 +241,5 @@ queueMicrotask(() => {
 
 Таким чином, пошкоджені дані коректно перехоплюються системою обробки винятків, запобігаючи непередбачуваним збоям у роботі гри.
 
-![Corrupt JSON](./src/screenshots/corrupt-json.png)
+![Corrupt JSON](./src/screenshots/timeout.png)
 
