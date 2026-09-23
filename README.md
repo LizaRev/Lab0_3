@@ -194,7 +194,7 @@ queueMicrotask(() => {
 
 
 
-<img width="360" height="360" alt="ship" src="https://github.com/user-attachments/assets/a7d336a6-3a13-4c6a-9421-3ff4b6c95b71" />
+
 
 
 
