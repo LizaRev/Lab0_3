@@ -192,15 +192,9 @@ queueMicrotask(() => {
 Таким чином, помилка 404 не призводить до падіння гри, а користувач отримує зрозуміле повідомлення та можливість повторити завантаження.
 
 
-
-<img width="2905" height="1412" alt="2026-09-23_10 36 38_cropped" src="https://github.com/user-attachments/assets/55e1dff7-632b-4696-ae23-a52b8c0261a4" />
-
+<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/37bc7409-a1a1-4183-b179-9ba86a740d41" />
 
 
-
- 
-
----
 
 ### 2. Network Timeout
 
