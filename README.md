@@ -1,4 +1,4 @@
-<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/f13cc2f3-60d8-4a7b-8678-c882e1b56bbf" />
+
 # Lab 03 - Асинхронний JavaScript: Promises, async/await і екран завантаження
 
 ## Головоломки порядку виконання
