@@ -191,7 +191,7 @@ queueMicrotask(() => {
 
 Таким чином, помилка 404 не призводить до падіння гри, а користувач отримує зрозуміле повідомлення та можливість повторити завантаження.
 
-<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/5e551210-a52f-4e87-8429-c64a7a0a01c0" />
+<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/74709892-d36c-4874-99ba-bcb93c0f3e6c" />
 
 
 ---
