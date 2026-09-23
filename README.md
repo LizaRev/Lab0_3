@@ -210,7 +210,7 @@ queueMicrotask(() => {
 
 Таким чином, затримка мережі не призводить до зависання гри, а користувач отримує зрозуміле повідомлення та можливість повторити завантаження.
 
-![Network Timeout](./src/screenshots/timeout.png)
+![Network Timeout](./src/screenshots/abourt.png)
 
 ---
 
@@ -226,7 +226,7 @@ queueMicrotask(() => {
 
 Таким чином, скасування операції не призводить до збою програми, а користувач бачить відповідне сповіщення та може повторити завантаження.
 
-![Abort Mid-Load](./src/screenshots/abort.png)
+![Abort Mid-Load](./src/screenshots/corrupt-json.png)
 
 ---
 
