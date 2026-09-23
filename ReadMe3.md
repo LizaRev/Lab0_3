@@ -191,8 +191,9 @@ queueMicrotask(() => {
 
 Таким чином, помилка 404 не призводить до падіння гри, а користувач отримує зрозуміле повідомлення та можливість повторити завантаження.
 
-<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/8f87506a-5a72-453f-b17f-e1884e5cfdd8" />
 
+
+<img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/a5938097-bf3c-4ff0-b59c-238f978f5736" />
 
 
  
@@ -215,7 +216,9 @@ queueMicrotask(() => {
 
 Таким чином, затримка мережі не призводить до зависання гри, а користувач отримує зрозуміле повідомлення та можливість повторити завантаження.
 
-<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 38 17" src="https://github.com/user-attachments/assets/80227ea9-b10a-464a-b8ab-e46520805bd3" />
+
+<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 38 17" src="https://github.com/user-attachments/assets/694207ee-3f8e-46c2-ae9a-db122d27030e" />
+
 
 
 ---
@@ -236,7 +239,9 @@ queueMicrotask(() => {
 Таким чином, скасування операції не призводить до збою програми, а користувач бачить відповідне сповіщення та може повторити завантаження.
 
 
-<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 52 37" src="https://github.com/user-attachments/assets/3db2c50f-d875-4191-b5e8-20f82d1922d4" />
+
+<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 52 37" src="https://github.com/user-attachments/assets/37f424f3-270b-49cd-b8c6-01e5a13269e8" />
+
 
 
 ---
@@ -252,4 +257,6 @@ queueMicrotask(() => {
 * шкала прогресу та статус **0%**
 
 Таким чином, пошкоджені дані коректно перехоплюються системою обробки винятків, запобігаючи непередбачуваним збоям у роботі гри.
-<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 52 37" src="https://github.com/user-attachments/assets/3db2c50f-d875-4191-b5e8-20f82d1922d4" />
+
+<img width="978" height="706" alt="Снимок экрана 2026-09-23 в 11 08 23" src="https://github.com/user-attachments/assets/2836b5f3-716d-4206-a789-b8df41b896b7" />
+
