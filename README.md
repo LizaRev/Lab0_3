@@ -193,7 +193,6 @@ queueMicrotask(() => {
 
 <img width="1470" height="706" alt="Снимок экрана 2026-09-23 в 10 15 39" src="https://github.com/user-attachments/assets/5e551210-a52f-4e87-8429-c64a7a0a01c0" />
 
-Ось готовий блок для другого пункту (**Network Timeout**) у такому ж стилі та з вашим скріншотом:
 
 ---
 
@@ -216,7 +215,6 @@ queueMicrotask(() => {
 <img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 38 17" src="https://github.com/user-attachments/assets/80227ea9-b10a-464a-b8ab-e46520805bd3" />
 
 
-
 ---
 
 ### 3. Abort Mid-Load
@@ -233,6 +231,7 @@ queueMicrotask(() => {
 
 
 Таким чином, скасування операції не призводить до збою програми, а користувач бачить відповідне сповіщення та може повторити завантаження.
+
 
 <img width="978" height="706" alt="Снимок экрана 2026-09-23 в 10 52 37" src="https://github.com/user-attachments/assets/3db2c50f-d875-4191-b5e8-20f82d1922d4" />
 
